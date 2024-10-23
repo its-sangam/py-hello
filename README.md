@@ -1,0 +1,200 @@
+# Python Basics
+
+Welcome to Python basics! This guide covers important concepts, including comparisons with JavaScript for those familiar with JS, object-oriented programming (OOP) principles, and Python-specific techniques.
+
+---
+
+## 1. **Comparing Python with JavaScript**
+
+If you come from a JavaScript background, here’s a quick comparison with Python:
+
+- **Arrays in JS** = `lists` in Python
+  ```js
+  // JavaScript
+  let arr = [1, 2, 3];
+  arr.push(4); // [1, 2, 3, 4]
+  ```
+  ```python
+  # Python
+  arr = [1, 2, 3]
+  arr.append(4)  # [1, 2, 3, 4]
+  ```
+
+- **Objects in JS** = `dictionaries` in Python
+  ```js
+  // JavaScript
+  let obj = { "key": "value" };
+  ```
+  ```python
+  # Python
+  obj = { "key": "value" }
+  ```
+
+---
+
+## 2. **Object-Oriented Programming (OOP) in Python**
+
+Python is a great language for object-oriented programming (OOP). Here's a breakdown of some important OOP concepts:
+
+### 2.1 **Magic Methods**
+Magic methods are special predefined methods in Python that are surrounded by double underscores (dunder). They allow customization of behavior for certain built-in operations. These methods are automatically triggered when corresponding actions are performed on objects.
+
+- **`__init__(self)`**:  
+  Called when an object is created (constructor).
+  
+- **`__str__(self)`**:  
+  Defines a user-friendly string representation (used by `print()`).
+
+- **`__repr__(self)`**:  
+  Defines a developer-friendly string (used in debugging).
+
+- **`__del__(self)`**:  
+  Called when an object is about to be destroyed (destructor).
+
+- **`__len__(self)`**:  
+  Returns the length of the object (used by `len()`).
+
+- **`__getitem__(self, key)`**:  
+  Allows indexing/slicing using `[]`.
+
+- **`__setitem__(self, key, value)`**:  
+  Allows setting values using `[]`.
+
+Example:
+```python
+class MyClass:
+    def __init__(self, name):
+        self.name = name
+    
+    def __str__(self):
+        return f"MyClass object with name: {self.name}"
+
+obj = MyClass("Python")
+print(obj)  # Output: MyClass object with name: Python
+```
+
+### 2.2 **Method Declaration Techniques**
+- **Normal Method**: Used for regular method declarations.
+  ```python
+  def execute_task(self):
+      pass
+  ```
+- **Single Underscore (`_method`)**: Protected method (informative, still accessible).
+  ```python
+  def _execute_task(self):
+      pass
+  ```
+- **Double Underscore (`__method`)**: Private method (raises `AttributeError` if accessed from outside).
+  ```python
+  def __execute_task(self):
+      pass
+  ```
+
+### 2.3 **Commenting Techniques**
+- **Single Line Comment**:
+  ```python
+  # This is a single-line comment
+  ```
+- **Multi-line Comment**:
+  ```python
+  '''This is a multi-line comment'''
+  ```
+- **Docstring for Documentation** (recommended):
+  ```python
+  """This is a documentation string, used for providing details about the code."""
+  ```
+
+---
+
+## 3. **Advanced OOP Concepts**
+
+### 3.1 **Abstract Methods**
+An abstract method is declared in the parent class but not defined. The child class must define this method.
+
+Example:
+```python
+from abc import ABC, abstractmethod
+
+class Parent(ABC):
+    @abstractmethod
+    def task(self):
+        pass
+
+class Child(Parent):
+    def task(self):
+        print("Task executed")
+
+obj = Child()
+obj.task()  # Output: Task executed
+```
+
+### 3.2 **Static Methods**
+A `@staticmethod` can be called without initializing the class. Useful for utility methods.
+
+Example:
+```python
+class MyClass:
+    @staticmethod
+    def log():
+        print("Logging some information...")
+
+MyClass.log()  # Output: Logging some information...
+```
+
+### 3.3 **Super Keyword**
+`super()` allows calling methods from a parent class within the child class.
+
+Example:
+```python
+class Parent:
+    def show(self):
+        print("Method from Parent class")
+
+class Child(Parent):
+    def show(self):
+        print("Method from Child class")
+        super().show()  # Calls Parent's show method
+
+child = Child()
+child.show()  
+# Output:
+# Method from Child class
+# Method from Parent class
+```
+
+### 3.4 **Multiple Inheritance and Method Resolution Order (MRO)**
+Python supports multiple inheritance, meaning a class can inherit from more than one parent class. In case of conflicts, Python uses **Method Resolution Order (MRO)** to decide which method to call first.
+
+Example:
+```python
+class A:
+    def show(self):
+        print("Method from class A")
+
+class B:
+    def show(self):
+        print("Method from class B")
+
+class C(A, B):
+    def show(self):
+        print("Method from class C")
+        super().show()
+
+c = C()
+c.show()
+# Output:
+# Method from class C
+# Method from class A
+```
+You can check the MRO using:
+```python
+print(C.__mro__)  
+# Output: (<class '__main__.C'>, <class '__main__.A'>, <class '__main__.B'>, <class 'object'>)
+```
+
+---
+## 4. **Some more information**
+
+- **```__pycache__``` Directory:**
+  The __pycache__ directory is automatically generated by Python to store compiled bytecode files (.pyc) for faster execution. These files are environment-specific and can be regenerated during runtime, so they are not needed in version control.
+---
